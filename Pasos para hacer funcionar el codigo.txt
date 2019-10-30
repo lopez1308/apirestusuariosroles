@@ -1,0 +1,83 @@
+Pasos para hacer funcionar el codigo:
+
+Ejecutar git clone 
+
+Acceder al diresctorio y ejecutar "composer install"
+
+Renombrar .env.example a .env y configurar los datos de conexion a la base de datos
+
+Ejecutar "php artisan key:generate" to generate application key.
+
+Ejecutar "php artisan migrate"
+
+Ejecutar los seeders
+-php artisan db:seed --class RolesTableSeeder
+-php artisan db:seed --class PermisosTableSeeder
+-php artisan db:seed --class permisosRolesSeeder
+
+Ejecutar "php artisan serve"
+
+y es todo ya se puede acceser a las urls de las api
+
+1) Servicio que permita la creación de un nuevo usuario donde se vincule a un rol y al menos un permiso.
+		
+		127.0.0.1:8000/api/usuarios
+		
+		json data:
+		{
+			"username":"flopez",
+			"email":"flopez@gmail.com",
+			"names":"felipe",
+			"paternal_surname":"lopez",
+			"maternal_surname":"",
+			"age":27,
+			"role":1,
+			"permisos":[ "Crear", "Leer", "Activar" ]
+		}
+
+2) Servicio que liste todos los usuarios existentes.
+	
+	127.0.0.1:8000/api/obtenerUsuarios
+
+
+3) Servicio que liste todos los usuarios que pertenezcan a un rol determinado, por ejemplo obtención del listado de los usuarios que sean operadores.
+	
+	127.0.0.1:8000/api/obtenerUsuariosRole/Operador
+
+4) Servicio que permita listar los usuarios que cuenten con algún permiso en particular, ejemplo los usuarios que tengan el permiso 'Activar'.
+	
+	127.0.0.1:8000/api/obtenerUsuariosPermiso/Activar
+
+5) Servicio que permita listar a todos aquellos usuarios activos.
+
+	127.0.0.1:8000/api/obtenerUsuariosActivos
+
+6) Servicio que permita listar a todos aquellos usuarios inactivos.
+	
+	127.0.0.1:8000/api/obtenerUsuariosinactivos
+
+7) Servicio que permita la actualización de un usuario.
+	
+	*Nota debe ser tipo PUT
+	127.0.0.1:8000/api/usuarios/7
+
+	json data:
+		{
+			"username":"flopez",
+			"email":"flopez@gmail.com",
+			"names":"felipe",
+			"paternal_surname":"lopez",
+			"maternal_surname":"",
+			"age":27,
+			"role":1,
+			"permisos":[ "Crear", "Leer", "Activar" ]
+		}
+		
+
+8) Servicio que permita visualizar la información de un usuario dado su identificador.
+	127.0.0.1:8000/api/usuarios/12
+
+9) Servicio que permita la eliminación de un usuario.
+	
+	*Nota debe ser tipo DELETE
+	127.0.0.1:8000/api/usuarios/6
